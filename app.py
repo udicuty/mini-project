@@ -14,7 +14,7 @@ def main():
   return render_template('index.html')
 
   
-@app.route('/index_test')
+@app.route('/index_test',methods=['GET', 'POST'])
 def index():
   ticker = request.form['ticker']
   FB=requests.get("https://www.quandl.com/api/v3/datasets/WIKI/FB.json?api_key=imyEEMzxpaYnGaLNyxfz")
