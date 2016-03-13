@@ -5,19 +5,19 @@ import numpy as np
 from bokeh.plotting import figure, output_file, show
 from bokeh import embed
 app = Flask(__name__)
-#app.debug = True
+app.debug = True
 
 
 @app.route('/')
 def main():
-  #return redirect('/index_test')
+  #return redirect('/index')
   return render_template('index.html')
 
   
-@app.route('/index_test',methods=['GET', 'POST'])
+@app.route('/stock_plot',methods=['GET', 'POST'])
 def index():
   ticker = request.form['ticker']
-  FB=requests.get("https://www.quandl.com/api/v3/datasets/WIKI/FB.json?api_key=imyEEMzxpaYnGaLNyxfz")
+  FB=requests.get("https://www.quandl.com/api/v3/datasets/WIKI/" + ticker + ".json?api_key=imyEEMzxpaYnGaLNyxfz")
   FB=FB.json()
   
   data=FB['dataset']['data']
@@ -47,11 +47,11 @@ def index():
 
 
   # add renderers
-  p.line(stock_dates, stock1, color='blue', alpha=1, legend="stock")
+  p.line(stock_dates, stock1, color='blue', alpha=1, legend=ticker.upper())
   #p.line(stock_dates, stock, color='navy', legend='avg')
 
   # NEW: customize by setting attributes
-  p.title = "stock last 30 days"
+  p.title = ticker.upper() + " : closing last 30 days"
   #p.legend.location = "top_right"
   #p.grid.grid_line_alpha=0
   #p.xaxis.axis_label = 'Date'
