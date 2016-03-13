@@ -64,7 +64,7 @@ def index():
   
   #show(p)
   script, div = components(p)
-  return render_template('index.html',name="KOKO")
+  return render_template('index.html')
   return render_template('index_test.html',script=script,div=div)
   
 
