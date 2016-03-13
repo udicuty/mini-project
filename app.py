@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect
 import requests
 import pandas as pd
-#import matplotlib.pyplot as plt
 import numpy as np
-
+from bokeh.plotting import figure, output_file, show
+from bokeh import embed
+  
 app = Flask(__name__)
-#app.debug = True
+app.debug = True
 
 
 @app.route('/')
@@ -28,10 +29,7 @@ def index():
   #plt.plot(closing)
   #plt.show()
   
-  from bokeh.plotting import figure, output_file, show
-  #from bokeh.plotting import output_notebook
-  from bokeh.embed import components
-  
+ 
   #output_notebook()
   
   stock1 = closing.values
@@ -63,7 +61,7 @@ def index():
   
   
   #show(p)
-  script, div = components(p)
+  script, div = embed.components(p)
   #return render_template('index.html')
   return render_template('index_test.html',script=script,div=div)
   
