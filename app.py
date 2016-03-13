@@ -12,7 +12,7 @@ app = Flask(__name__)
 def main():
   return redirect('/index_test')
 
-@app.route('/index_test')
+@app.route('/index_test',methods=['GET','POST'])
 def index():
   
 
