@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 app = Flask(__name__)
-app.debug = True
+#app.debug = True
 
 
 @app.route('/')
