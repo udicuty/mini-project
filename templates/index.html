@@ -1,7 +1,22 @@
 <!doctype html>
-<title>Hello from Flask</title>
-{% if name %}
-  <h1>Hello {{ name }}!</h1>
-{% else %}
-  <h1>Hello World!</h1>
-{% endif %}
+<head>
+<title>Last month stock changes</title>
+<!-- <link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}' -->
+</head>
+<body>
+	<div>
+		<h2>Last month stock changes</h2><BR>
+  		<h4>Please enter a VALID stock ticker (eg. GOOG = Google, AAPL = Apple), and check desired features.</h4>
+      <p>(Click <a href='https://www.quandl.com/data/WIKI'>here</a> for a full list of stock tickers)</p>
+  		<form id='ticker_input' method='post' action='/index_test' >
+    		<p>
+    		Ticker symbol: <input type='text' name='ticker' />
+      	</p>
+      	
+      	<p>
+    		<input type='submit' value='Submit' />
+      	</p>
+    	</form>
+	</div>
+</body>
+</html>

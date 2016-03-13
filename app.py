@@ -5,17 +5,18 @@ import numpy as np
 from bokeh.plotting import figure, output_file, show
 from bokeh import embed
 app = Flask(__name__)
-#app.debug = True
+app.debug = True
 
 
-@app.route('/')
+@app.route('/',methods=['GET', 'POST'])
 def main():
-  return redirect('/index_test')
+  #return redirect('/index_test')
+  return render_template('index.html')
 
-@app.route('/index_test')
-
-def index():
   
+@app.route('/index_test',methods=['GET', 'POST'])
+def index():
+  ticker = request.form['ticker']
   FB=requests.get("https://www.quandl.com/api/v3/datasets/WIKI/FB.json?api_key=imyEEMzxpaYnGaLNyxfz")
   FB=FB.json()
   
