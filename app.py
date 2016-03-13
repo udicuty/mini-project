@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import requests
 import pandas as pd
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 app = Flask(__name__)
@@ -16,7 +16,7 @@ def main():
 def index():
   
 
-  FB=requests.get("https://www.quandl.com/api/v3/datasets/WIKI/FB.json")
+  FB=requests.get("https://www.quandl.com/api/v3/datasets/WIKI/FB.json?api_key=imyEEMzxpaYnGaLNyxfz")
   FB=FB.json()
   
   data=FB['dataset']['data']
