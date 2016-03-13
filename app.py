@@ -54,11 +54,11 @@ def index():
   # NEW: customize by setting attributes
   p.title = "stock last 30 days"
   #p.legend.location = "top_right"
-  p.grid.grid_line_alpha=0
-  p.xaxis.axis_label = 'Date'
-  p.yaxis.axis_label = 'Price'
-  p.ygrid.band_fill_color="olive"
-  p.ygrid.band_fill_alpha = 0.1
+  #p.grid.grid_line_alpha=0
+  #p.xaxis.axis_label = 'Date'
+  #p.yaxis.axis_label = 'Price'
+  #p.ygrid.band_fill_color="olive"
+  #p.ygrid.band_fill_alpha = 0.1
   # show the results
   
   
