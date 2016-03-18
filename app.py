@@ -21,6 +21,9 @@ def main():
 def index():
   
   ticker = request.form['ticker']
+  if len(ticker)==0:
+	return render_template('bad_ticker.html',ticker=ticker)
+  
   start_date=date.today()-timedelta(days=30)
   url="https://www.quandl.com/api/v3/datasets/WIKI/" + ticker + "/data.json?start_date=" + str(start_date) + "&api_key=imyEEMzxpaYnGaLNyxfz"
   

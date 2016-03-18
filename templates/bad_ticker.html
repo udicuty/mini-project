@@ -4,7 +4,12 @@
 </head>
 <body>
 	<div>
+		<p>
+		{% if ticker == '' %}
+		<h1> Empty ticker is not supported, go back </h1>
+		{% else %}
 		<h1> Ticker: {{ticker}}, does not exist, go back </h1>
+		{% endif %}
 		<input type="button" value="Back" onclick="window.history.back()" />
 	</div>
 </body>
