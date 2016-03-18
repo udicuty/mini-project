@@ -4,6 +4,9 @@ import pandas as pd
 import numpy as np
 from bokeh.plotting import figure, output_file, show
 from bokeh import embed
+from datetime import timedelta,date
+
+
 app = Flask(__name__)
 app.debug = True
 
@@ -16,55 +19,41 @@ def main():
   
 @app.route('/stock_plot',methods=['GET', 'POST'])
 def index():
-  ticker = request.form['ticker']
-  FB=requests.get("https://www.quandl.com/api/v3/datasets/WIKI/" + ticker + ".json?api_key=imyEEMzxpaYnGaLNyxfz")
-  FB=FB.json()
   
-  data=FB['dataset']['data']
-  cols=FB['dataset']['column_names']
+  ticker = request.form['ticker']
+  start_date=date.today()-timedelta(days=30)
+  url="https://www.quandl.com/api/v3/datasets/WIKI/" + ticker + "/data.json?start_date=" + str(start_date) + "&api_key=imyEEMzxpaYnGaLNyxfz"
+  
+  stock=requests.get(url)
+  if stock.status_code==404:
+	return render_template('bad_ticker.html',ticker=ticker)
+    
+  stock_json=stock.json()
+  
+  data=stock_json['dataset_data']['data']
+  cols=stock_json['dataset_data']['column_names']
   p=pd.DataFrame(columns=cols,data=data)
   p.index=(pd.DatetimeIndex(p.Date))
   
-  closing=p.Close[1:30]
-  #plt.plot(closing)
-  #plt.show()
-  
- 
-  #output_notebook()
-  
-  stock1 = closing.values
-  stock_dates = closing.index
+  stock1 = p.Close
+  stock_dates = p.index
   
   window_size = 30
   window = np.ones(window_size)/float(window_size)
-  #stock_avg = np.convolve(stock, window, 'same')
-  
- 
-  
-  # create a new plot with a a datetime axis type
-  #p = figure(width=800, height=350, x_axis_type="datetime",tools="wheel_zoom,pan")
+
   p = figure(width=800, height=350, x_axis_type="datetime",tools="wheel_zoom,pan,reset")
 
 
   # add renderers
   p.line(stock_dates, stock1, color='blue', alpha=1, legend=ticker.upper())
-  #p.line(stock_dates, stock, color='navy', legend='avg')
-
+ 
   # NEW: customize by setting attributes
   p.title = ticker.upper() + " : closing last 30 days"
-  #p.legend.location = "top_right"
-  #p.grid.grid_line_alpha=0
-  #p.xaxis.axis_label = 'Date'
-  #p.yaxis.axis_label = 'Price'
-  #p.ygrid.band_fill_color="olive"
-  #p.ygrid.band_fill_alpha = 0.1
-  # show the results
-  
+ 
   
   #show(p)
   script, div = embed.components(p)
-  #return render_template('index.html')
-  return render_template('index_test.html',script=script,div=div)
+  return render_template('plot.html',script=script,div=div)
 
   
   
